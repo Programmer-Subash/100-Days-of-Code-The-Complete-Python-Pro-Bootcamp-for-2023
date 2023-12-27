@@ -55,7 +55,7 @@ def blackjack():
     computer_cards.clear()
 
     #draw 2 card for user and dealer
-    for _ in range(3):
+    for _ in range(2):
         draw_random_card('computer')
         draw_random_card('user')
 
