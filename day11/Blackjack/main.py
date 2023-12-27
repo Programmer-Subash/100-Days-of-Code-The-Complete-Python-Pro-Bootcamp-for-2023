@@ -17,10 +17,10 @@ def count_card(cards):
     total = sum(cards)
     if total > 21 and 11 in cards:
         total -= 10
+        cards.remove(11)
+        cards.append(1)
     return total
 
-
-print(logo)
 
 def check_for_winner():
     user_total = count_card(user_cards)
@@ -31,8 +31,6 @@ def check_for_winner():
 
     if computer_total < 17:
         print('Computer final score is less than 17. You win')
-    elif user_total > 21:
-        print('You went over. Computer win')
     elif computer_total > 21:
         print('Opponent went over. You win')
     elif 21 - user_total < 21 - computer_total:
@@ -43,19 +41,20 @@ def check_for_winner():
         print('Draw')
 
 def blackjack():
+    print(logo)
 
     user_cards.clear()
     computer_cards.clear()
 
-    draw_random_card('user')
-    draw_random_card('user')
 
-    draw_random_card('computer')
-    draw_random_card('computer')
+    for _ in range(3):
+        draw_random_card('computer')
+        draw_random_card('user')
 
     print(f'Your cards: {user_cards}, current score: {count_card(user_cards)}')
     print(f'Computer\'s first card: {computer_cards[0]}')
 
+    winner_declare = False
     want_card = True
     while want_card:
         if input('Type "y" to get another card, type "n" to pass: ') == 'n':
@@ -66,13 +65,18 @@ def blackjack():
         draw_random_card('computer')
 
         if count_card(user_cards) > 21:
+            print(f'Your final hand: {user_cards}, final score: {count_card(user_cards)}')
+            print(f'Computer\'s final hand: {computer_cards}, final score: {count_card(computer_cards)}')
+            print('You went over. Computer win')
             want_card = False
+            winner_declare = True
             break
 
         print(f'Your cards: {user_cards}, current score: {count_card(user_cards)}')
         print(f'Computer\'s first card: {computer_cards[0]}')
 
-    check_for_winner()
+    if not winner_declare:
+        check_for_winner()
 
     if input('Type "y" to play again otherwise type "n" ') == 'y':
         blackjack()
