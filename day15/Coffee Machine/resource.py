@@ -3,4 +3,4 @@ resources = {
     "milk": 200,
     "coffee": 100,
 }
-profit = 0
+profit = 0.0
